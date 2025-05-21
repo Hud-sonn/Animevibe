@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Hiro's Anime Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer src="script.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- Welcome Message for Logged-in Users -->
+<div id="welcomeBackMessage" class="hidden text-center p-4 bg-green-700 text-white font-semibold">
+  Welcome back, <span id="currentUserName"></span>!
+  <button id="goToProfile" class="ml-4 px-3 py-1 bg-blue-600 rounded hover:bg-blue-500 transition">Go to Profile</button>
+</div>
+
+<!-- Header -->
+<header class="p-4 flex justify-between items-center bg-gray-800 shadow-lg sticky top-0 z-50">
+  <h1 class="text-2xl font-extrabold tracking-wide animated-title">
+    Hiro’s Anime World
+  </h1>
+  <button class="md:hidden text-white text-2xl focus:outline-none" id="navToggle">☰</button>
+  <nav class="hidden md:flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 text-sm md:text-base absolute md:static top-full left-0 w-full md:w-auto bg-gray-800 md:bg-transparent px-6 py-4 md:p-0 shadow-lg md:shadow-none z-40" id="mainNav">
+    <a class="hover:underline" href="index.html">Home</a>
+    <a class="hover:underline" href="profile.html">Profile</a>
+    <a class="hover:underline" href="faq.html">FAQ</a>
+    <a class="hover:underline" href="contact.html">Contact</a>
+    <a class="hover:underline" href="help.html">Help</a>
+    <a class="hover:underline" href="watchlist.html">Watchlist</a>
+  </nav>
+</header>
+
+<button class="bg-gray-700 px-3 py-1 rounded hover:bg-gray-600 transition" id="themeToggle">Toggle Theme</button>
+
+<main class="p-6 space-y-10">
+  <section class="text-center space-y-2">
+    <h2 class="text-4xl font-bold animate-fade-in">Discover Iconic Anime</h2>
+    <p class="text-gray-400 animate-fade-in-slow">From classics to trending, dive into genres with deep dives and ratings!</p>
+  </section>
+
+  <section class="max-w-lg mx-auto">
+    <input class="w-full p-3 rounded bg-gray-800 text-white focus:ring-2 ring-blue-500 outline-none transition" id="searchInput" placeholder="Search anime..." type="text"/>
+  </section>
+
+  <!-- Trending Anime Section -->
+  <section>
+  <h3 class="text-2xl font-semibold mb-4">🔥 Trending Anime</h3>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="Attack on Titan">
+    <img alt="Attack on Titan anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/Aot.jpg"/>
+    <h4 class="font-bold text-lg">Attack on Titan</h4>
+    <p class="text-sm text-gray-400">Humanity hides behind three massive walls to escape flesh-eating Titans. After a Titan breach destroys his hometown and kills his mother, Eren Yeager vows revenge and joins the elite Survey Corps with friends Mikasa and Armin.
+
+    Battles reveal stunning truths: Eren can become a Titan, Titans are transformed humans, and their walled society—Paradis Island—is oppressed by the distant Marleyan Empire. Seeking freedom, Eren sparks a brutal world war and unleashes the apocalyptic Rumbling, marching countless Colossal Titans to trample the globe.
+
+    Former comrades unite to stop him; Eren falls, ending the Rumbling and halting the cycle of hatred—though at immense human cost. </p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="Attack on Titan" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="Demon Slayer">
+    <img alt="Demon Slayer anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/demon slayer.jpeg"/>
+    <h4 class="font-bold text-lg">Demon Slayer</h4>
+    <p class="text-sm text-gray-400">Demon Slayer follows Tanjiro Kamado, a kind boy whose family is slaughtered by demons. His sister Nezuko survives but is turned into a demon. Determined to avenge his family and cure Nezuko, Tanjiro joins the Demon Slayer Corps.
+
+    He trains hard, makes allies like Zenitsu and Inosuke, and battles powerful demons known as the Twelve Kizuki, who serve the main villain, Muzan Kibutsuji—the first and most powerful demon.
+
+    Throughout the journey, Tanjiro discovers the secrets of Sun Breathing, faces heartbreaking losses like Rengoku (Flame Hashira), and grows stronger with every battle. Nezuko eventually resists her demon nature and is cured.
+
+    In the final battle, the Demon Slayers storm Infinity Castle and defeat Muzan, though many heroes fall. Peace is restored, and the story ends in a hopeful modern era where descendants live freely, unaware of the past struggle. </p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="Demon Slayer" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="Jujutsu Kaisen">
+    <img alt="Jujutsu Kaisen anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/kaisen.jpeg"/>
+    <h4 class="font-bold text-lg">Jujutsu Kaisen</h4>
+    <p class="text-sm text-gray-400">Jujutsu Kaisen follows Yuji Itadori, a high school student with incredible physical strength who gets involved in the world of Jujutsu Sorcerers after swallowing a cursed object—one of the fingers of Ryomen Sukuna, the King of Curses.
+
+    Yuji becomes the host of Sukuna and joins Tokyo Jujutsu High under the guidance of powerful sorcerer Satoru Gojo. Alongside classmates Megumi Fushiguro and Nobara Kugisaki, Yuji battles Curses—evil spirits born from human fear and negativity.
+
+    The story explores dark themes, brutal battles, and complex villains like Mahito and Kenjaku, who aim to evolve humanity through chaos and cursed energy. As the sorcerers uncover secrets about Sukuna, cursed techniques, and ancient powers, they face devastating losses and moral dilemmas.
+
+    Yuji fights to protect people while carrying the burden of Sukuna inside him, struggling between saving lives and resisting the darkness within. </p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="Jujutsu Kaisen" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="One Piece">
+    <img alt="One Piece anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/onepiece.jpeg"/>
+    <h4 class="font-bold text-lg">One Piece</h4>
+    <p class="text-sm text-gray-400">One Piece follows Monkey D. Luffy, a cheerful and determined young pirate with a rubber body, gained from eating the Gum-Gum Devil Fruit. His dream is to find the legendary treasure One Piece and become the King of the Pirates.
+
+    Luffy builds a crew called the Straw Hat Pirates, including swordsman Zoro, navigator Nami, sniper Usopp, cook Sanji, doctor Chopper, archaeologist Robin, shipwright Franky, musician Brook, and fish-man helmsman Jinbe. Together, they sail the Grand Line, facing powerful enemies, rival pirates, and the corrupt World Government.
+
+    The world of One Piece is full of ancient secrets, powerful Devil Fruits, and mystical history—like the lost Void Century and ancient weapons. As the crew grows stronger and more united, they get closer to uncovering the truth about the world and reaching the final island: Laugh Tale, where the One Piece treasure awaits. </p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="One Piece" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="Mob Psycho 100">
+    <img alt="Mob Psycho 100 anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/Mob.jpeg"/>
+    <h4 class="font-bold text-lg">Mob Psycho 100</h4>
+    <p class="text-sm text-gray-400">Mob Psycho 100 follows Shigeo “Mob” Kageyama, a quiet middle schooler with immense psychic powers. To keep his emotions—and powers—in check, he suppresses his feelings. He works for a fake psychic named Reigen Arataka, who gives him life advice and odd jobs.
+
+    Mob just wants a normal life, but he constantly faces evil spirits, other powerful espers, and emotional challenges. As the series progresses, Mob learns to understand his own identity, emotions, and the meaning of strength beyond just psychic power.
+
+    The story blends action, comedy, and deep emotional growth with stunning animation and a powerful message about self-acceptance.</p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="Mob Psycho 100" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="Erased">
+    <img alt="Erased anime poster" class="w-full rounded-lg mb-3 trending-image" loading="lazy" src="/Images/erased.jpeg"/>
+    <h4 class="font-bold text-lg">Erased</h4>
+    <p class="text-sm text-gray-400">Erased (Boku dake ga Inai Machi)
+
+    Erased follows Satoru Fujinuma, a struggling manga artist with a mysterious ability called “Revival”, which sends him back in time to prevent tragedies. When his mother is murdered, Satoru is sent 18 years into the past, back to his childhood.
+
+    There, he tries to prevent a series of kidnappings and murders involving his classmates—especially Kayo Hinazuki, a lonely girl with a tragic home life. As he uncovers the truth behind the crimes, he must outwit a dangerous killer hiding in plain sight.
+
+    Erased is a gripping mix of suspense, mystery, and heartfelt drama about second chances and saving the ones you care about.</p>
+    <button class="watchlist-btn mt-2 bg-green-600 px-3 py-1 rounded text-sm hover:bg-green-500 transition" data-title="Erased" onclick="toggleWatchlist(this)">+ Watchlist</button>
+  </div>
+
+  <!-- New added anime -->
+
+  <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transition-transform duration-300 trending-card" data-title="My Hero Academia">
+  <!-- Genre Links -->
+  <section>
+    <h3 class="text-2xl font-semibold my-4">Explore by Genre</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <a class="genre-btn bg-blue-600" href="genre-shonen.html">Shounen</a>
+      <a class="genre-btn bg-pink-500" href="genre-romance.html">Romance</a>
+    </div>
+  </section>
+</main>
+
+<footer class="text-center text-gray-400 p-4 mt-10 bg-gray-800">
+  © 2025 Hiro’s Anime Blog. All rights reserved.
+</footer>
+
+<style>
+  .genre-btn {
+    @apply text-center p-3 rounded font-semibold text-white hover:brightness-110 hover:scale-105 transition transform duration-300;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  .animate-fade-in-slow {
+    animation: fadeIn 1s ease-out forwards;
+  }
+</style>
+
+<!-- Welcome Message Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const userName = localStorage.getItem("username") || localStorage.getItem("userName");
+    const welcomeDiv = document.getElementById("welcomeBackMessage");
+    const nameSpan = document.getElementById("currentUserName");
+    const goToProfileBtn = document.getElementById("goToProfile");
+
+    if (userName && welcomeDiv && nameSpan) {
+      nameSpan.textContent = userName;
+      welcomeDiv.classList.remove("hidden");
+    }
+
+    if (goToProfileBtn) {
+      goToProfileBtn.addEventListener("click", function () {
+        window.location.href = "profile.html";
+      });
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.getElementById("navToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    navToggle.addEventListener("click", function () {
+      mainNav.classList.toggle("hidden");
+    });
+  });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const themeToggle = document.getElementById("themeToggle");
+  const root = document.documentElement;
+
+  themeToggle.addEventListener("click", function () {
+    const currentTheme = root.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
+
+  // On page load, apply saved theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+}); </script>
+</body>
+</html>
