@@ -15,9 +15,8 @@ themeToggle?.addEventListener('click', () => {
   localStorage.setItem('theme', next);
 });
 
-// ======= SEARCH FUNCTIONALITY WITH DEBOUNCE =======
+// ======= SEARCH FUNCTIONALITY =======
 const searchInput = document.getElementById('searchInput');
-
 function debounce(func, delay) {
   let timeout;
   return function (...args) {
@@ -28,8 +27,7 @@ function debounce(func, delay) {
 
 const handleSearch = debounce(() => {
   const query = searchInput.value.toLowerCase();
-  const cards = document.querySelectorAll('[data-title]');
-  cards.forEach(card => {
+  document.querySelectorAll('[data-title]').forEach(card => {
     const title = card.getAttribute('data-title').toLowerCase();
     card.style.display = title.includes(query) ? 'block' : 'none';
   });
@@ -44,16 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const avatarImg = document.getElementById('avatarImg');
   const avatarInput = document.getElementById('avatarInput');
 
-  // Load saved name
   const savedName = localStorage.getItem('username') || 'User123';
   if (nameField) nameField.textContent = savedName;
   if (nameInput) nameInput.value = savedName;
 
-  // Load avatar
   const savedAvatar = localStorage.getItem('avatar');
   if (savedAvatar && avatarImg) avatarImg.src = savedAvatar;
 
-  // Save new name
   document.getElementById('saveName')?.addEventListener('click', () => {
     const newName = nameInput.value;
     localStorage.setItem('username', newName);
@@ -61,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     alert('Name updated!');
   });
 
-  // Avatar bounce + save
   avatarInput?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -87,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ======= WATCHLIST FUNCTIONS =======
+// ======= WATCHLIST CORE FUNCTIONS =======
 function getWatchlist() {
   return JSON.parse(localStorage.getItem("animeWatchlist")) || [];
 }
@@ -101,7 +95,6 @@ function toggleWatchlist(button) {
   let watchlist = getWatchlist();
 
   const isAdded = watchlist.includes(title);
-
   if (isAdded) {
     watchlist = watchlist.filter(item => item !== title);
     button.textContent = "+ Watchlist";
@@ -118,7 +111,6 @@ function toggleWatchlist(button) {
   saveWatchlist(watchlist);
 }
 
-// ======= WATCHLIST POPUP =======
 function showPopup() {
   const popup = document.getElementById("watchlistPopup");
   if (!popup) return;
@@ -126,76 +118,7 @@ function showPopup() {
   setTimeout(() => popup.classList.add("hidden"), 3000);
 }
 
-function closePopup() {
-  document.getElementById("watchlistPopup")?.classList.add("hidden");
-}
-
-function goToWatchlist() {
-  window.location.href = "watchlist.html";
-}
-
-// ======= MOBILE NAVIGATION TOGGLE =======
-const toggleBtn = document.getElementById("navToggle");
-const nav = document.getElementById("mainNav");
-
-toggleBtn?.addEventListener("click", () => {
-  nav?.classList.toggle("nav-visible");
-  nav?.classList.toggle("nav-hidden");
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  if (window.innerWidth < 768 && nav) {
-    nav.classList.add("nav-hidden");
-  }
-});
-
-document.querySelectorAll("#mainNav a").forEach(link =>
-  link.addEventListener("click", () => {
-    if (window.innerWidth < 768 && nav) {
-      nav.classList.remove("nav-visible");
-      nav.classList.add("nav-hidden");
-    }
-  })
-);
-let selectedAnime = '';
-let timeoutId;
-
-function toggleDetails(btn) {
-  const details = btn.closest('.bg-gray-800').querySelector('.details');
-  details.classList.toggle('hidden');
-}
-
-function toggleWatchlist(button) {
-  selectedAnime = button.dataset.title;
-  const popup = document.getElementById('watchlistPopup');
-  popup.classList.remove('hidden');
-
-  // Auto close popup after 30 seconds
-  timeoutId = setTimeout(() => confirmWatchlist(false), 30000);
-}
-
-function confirmWatchlist(confirm) {
-  const popup = document.getElementById('watchlistPopup');
-  popup.classList.add('hidden');
-  clearTimeout(timeoutId);
-
-  if (confirm) {
-    let list = JSON.parse(localStorage.getItem('watchlist')) || [];
-    if (!list.includes(selectedAnime)) {
-      list.push(selectedAnime);
-      localStorage.setItem('watchlist', JSON.stringify(list));
-    }
-    // Redirect to watchlist page
-    window.location.href = 'watchlist.html';
-  }
-}
-
-function closePopup() {
-  const popup = document.getElementById('watchlistPopup');
-  popup.classList.add('hidden');
-  clearTimeout(timeoutId);
-}
-
+// ======= COMMENT SYSTEM =======
 function postComment(animeId) {
   const input = document.getElementById(`commentInput-${animeId}`);
   const container = document.getElementById(`newComments-${animeId}`);
@@ -216,3 +139,33 @@ function postComment(animeId) {
   container.appendChild(div);
   input.value = '';
 }
+
+// ======= DETAILS TOGGLE =======
+function toggleDetails(btn) {
+  const details = btn.closest('.bg-gray-800').querySelector('.details');
+  details?.classList.toggle('hidden');
+}
+
+// ======= NAV TOGGLE =======
+const navToggle = document.getElementById("navToggle");
+const mainNav = document.getElementById("mainNav");
+
+navToggle?.addEventListener("click", () => {
+  mainNav?.classList.toggle("nav-visible");
+  mainNav?.classList.toggle("nav-hidden");
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.innerWidth < 768 && mainNav) {
+    mainNav.classList.add("nav-hidden");
+  }
+
+  document.querySelectorAll("#mainNav a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth < 768 && mainNav) {
+        mainNav.classList.remove("nav-visible");
+        mainNav.classList.add("nav-hidden");
+      }
+    });
+  });
+});
