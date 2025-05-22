@@ -6,7 +6,33 @@
   <title>Shounen Anime – Hiro's Blog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <style>
+    /* Simple fade-in animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .animate-fade-in-slow {
+      animation: fadeIn 1.2s ease forwards;
+    }
+    /* Aspect ratio helper if you don't have Tailwind aspect plugin */
+    .aspect-w-16 {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+    }
+    .aspect-w-16 iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 0.5rem;
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
@@ -46,8 +72,8 @@
           <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
         </div>
         <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="Attack on Titan" onclick="toggleWatchlist(this)">+ Watchlist</button>
-        <div class="aspect-w-16 aspect-h-9 mt-4">
-          <iframe src="https://www.youtube.com/embed/MGRm4IzK1SQ" frameborder="0" class="w-full rounded-lg" allowfullscreen></iframe>
+        <div class="aspect-w-16 mt-4">
+          <iframe src="https://www.youtube.com/embed/MGRm4IzK1SQ" allowfullscreen></iframe>
         </div>
         <div class="mt-4">
           <h4 class="font-semibold mb-2">Comments:</h4>
@@ -60,8 +86,8 @@
               </div>
             </div>
             <div id="newComments-AoT" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-AoT" placeholder="Add a comment..." class="comment-input animate-fade-in"></textarea>
-            <button onclick="postComment('AoT')" class="comment-button animate-fade-in">Post</button>
+            <textarea id="commentInput-AoT" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
+            <button onclick="postComment('AoT')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
           </div>
         </div>
       </div>
@@ -80,15 +106,15 @@
           <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
         </div>
         <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="My Hero Academia" onclick="toggleWatchlist(this)">+ Watchlist</button>
-        <div class="aspect-w-16 aspect-h-9 mt-4">
-          <iframe src="https://www.youtube.com/embed/wIb3nnOeves" frameborder="0" class="w-full rounded-lg" allowfullscreen></iframe>
+        <div class="aspect-w-16 mt-4">
+          <iframe src="https://www.youtube.com/embed/wIb3nnOeves" allowfullscreen></iframe>
         </div>
         <div class="mt-4">
           <h4 class="font-semibold mb-2">Comments:</h4>
           <div id="comments-MHA" class="bg-gray-700 p-4 rounded space-y-3 text-sm">
             <div id="newComments-MHA" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-MHA" placeholder="Add a comment..." class="comment-input animate-fade-in"></textarea>
-            <button onclick="postComment('MHA')" class="comment-button animate-fade-in">Post</button>
+            <textarea id="commentInput-MHA" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
+            <button onclick="postComment('MHA')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
           </div>
         </div>
       </div>
@@ -107,15 +133,15 @@
           <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
         </div>
         <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="Mob Psycho" onclick="toggleWatchlist(this)">+ Watchlist</button>
-        <div class="aspect-w-16 aspect-h-9 mt-4">
-          <iframe src="https://www.youtube.com/embed/fAwGv0AJ7UI" frameborder="0" class="w-full rounded-lg" allowfullscreen></iframe>
+        <div class="aspect-w-16 mt-4">
+          <iframe src="https://www.youtube.com/embed/fAwGv0AJ7UI" allowfullscreen></iframe>
         </div>
         <div class="mt-4">
           <h4 class="font-semibold mb-2">Comments:</h4>
           <div id="comments-Mob" class="bg-gray-700 p-4 rounded space-y-3 text-sm">
             <div id="newComments-Mob" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-Mob" placeholder="Add a comment..." class="comment-input animate-fade-in"></textarea>
-            <button onclick="postComment('Mob')" class="comment-button animate-fade-in">Post</button>
+            <textarea id="commentInput-Mob" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
+            <button onclick="postComment('Mob')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
           </div>
         </div>
       </div>
@@ -135,5 +161,80 @@
     &copy; 2025 Hiro’s Anime Blog
   </footer>
 
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const mainNav = document.getElementById('mainNav');
+    navToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('hidden');
+    });
+
+    // Toggle anime details
+    function toggleDetails(button) {
+      const container = button.closest('div[data-title]');
+      const details = container.querySelector('.details');
+      if (details.classList.contains('hidden')) {
+        details.classList.remove('hidden');
+      } else {
+        details.classList.add('hidden');
+      }
+    }
+
+    // Watchlist popup control
+    const watchlistPopup = document.getElementById('watchlistPopup');
+    let currentWatchlistTitle = null;
+
+    function toggleWatchlist(button) {
+      currentWatchlistTitle = button.getAttribute('data-title');
+      watchlistPopup.querySelector('p').textContent = `Add "${currentWatchlistTitle}" to Watchlist?`;
+      watchlistPopup.classList.remove('hidden');
+    }
+
+    function closePopup() {
+      watchlistPopup.classList.add('hidden');
+      currentWatchlistTitle = null;
+    }
+
+    // Post comment function
+    function postComment(animeId) {
+      const input = document.getElementById(`commentInput-${animeId}`);
+      const commentsContainer = document.getElementById(`newComments-${animeId}`);
+      const text = input.value.trim();
+      if (text.length === 0) {
+        alert('Please enter a comment before posting.');
+        return;
+      }
+
+      // Create comment elements
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'flex items-start gap-3';
+
+      const avatar = document.createElement('img');
+      avatar.src = 'assets/avatars/default.png';
+      avatar.alt = 'Avatar';
+      avatar.className = 'w-8 h-8 rounded-full';
+
+      const textDiv = document.createElement('div');
+      const usernameP = document.createElement('p');
+      usernameP.className = 'font-bold';
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      usernameP.innerHTML = `You <span class="text-xs text-gray-400">– just now</span>`;
+
+      const commentP = document.createElement('p');
+      commentP.textContent = text;
+
+      textDiv.appendChild(usernameP);
+      textDiv.appendChild(commentP);
+
+      commentDiv.appendChild(avatar);
+      commentDiv.appendChild(textDiv);
+
+      commentsContainer.appendChild(commentDiv);
+
+      // Clear input
+      input.value = '';
+    }
+  </script>
 </body>
 </html>
