@@ -98,6 +98,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDGJvkEZPtaqSJfV4y7qCM2kngRf-spGuA",
@@ -106,11 +107,13 @@
       storageBucket: "animevibe-e6051.appspot.com",
       messagingSenderId: "567058042005",
       appId: "1:567058042005:web:2045341ea9e5c4aa4edf9c",
-      measurementId: "G-ZBCWELWQ99"
+      measurementId: "G-ZBCWELWQ99",
+      databaseURL: "https://animevibe-e6051-default-rtdb.firebaseio.com/"
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getDatabase(app);
 
     document.addEventListener("DOMContentLoaded", () => {
       const usernameDisplay = document.getElementById("profileUsername");
@@ -118,36 +121,54 @@
       const profileImageInput = document.getElementById("profileImageInput");
       const profileImagePreview = document.getElementById("profileImagePreview");
 
-      const storedUsername = localStorage.getItem("username") || "Guest";
-      const storedImage = localStorage.getItem("profileImage");
-
-      // Animate on load
       const section = document.getElementById("profileSection");
       requestAnimationFrame(() => section.classList.add("animate-fadeInScale"));
 
-      // Load profile image
-      profileImagePreview.src = storedImage || "https://via.placeholder.com/100?text=Avatar";
+      let currentUID = null;
 
-      // Firebase Auth
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
           userEmailDisplay.textContent = user.email || "Unknown";
-          usernameDisplay.textContent = storedUsername || user.displayName || "User";
+          currentUID = user.uid;
+
+          const userRef = ref(db, `users/${currentUID}`);
+          try {
+            const snapshot = await get(userRef);
+            if (snapshot.exists()) {
+              const data = snapshot.val();
+              const username = data.username || "User";
+              const image = data.profileImage || "https://via.placeholder.com/100?text=Avatar";
+              usernameDisplay.textContent = username;
+              profileImagePreview.src = image;
+              localStorage.setItem("username", username);
+              localStorage.setItem("profileImage", image);
+            } else {
+              const fallbackUsername = localStorage.getItem("username") || "User";
+              const fallbackImage = localStorage.getItem("profileImage") || "https://via.placeholder.com/100?text=Avatar";
+              usernameDisplay.textContent = fallbackUsername;
+              profileImagePreview.src = fallbackImage;
+            }
+          } catch (error) {
+            console.error("Failed to fetch from DB:", error);
+          }
         } else {
           userEmailDisplay.textContent = "user@example.com";
-          usernameDisplay.textContent = storedUsername || "Guest";
+          usernameDisplay.textContent = localStorage.getItem("username") || "Guest";
+          profileImagePreview.src = localStorage.getItem("profileImage") || "https://via.placeholder.com/100?text=Avatar";
         }
       });
 
-      // Upload profile image
-      profileImageInput.addEventListener("change", (e) => {
+      profileImageInput.addEventListener("change", async (e) => {
         const file = e.target.files[0];
         if (file && file.size < 1024 * 1024) {
           const reader = new FileReader();
-          reader.onload = function (event) {
+          reader.onload = async function (event) {
             const base64Image = event.target.result;
             localStorage.setItem("profileImage", base64Image);
             profileImagePreview.src = base64Image;
+            if (currentUID) {
+              await set(ref(db, `users/${currentUID}/profileImage`), base64Image);
+            }
           };
           reader.readAsDataURL(file);
         } else {
@@ -156,35 +177,37 @@
         }
       });
 
-      // Update username
-      document.getElementById("updateForm").addEventListener("submit", (e) => {
+      document.getElementById("updateForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         const newUsername = document.getElementById("newUsername").value.trim();
         if (newUsername) {
           localStorage.setItem("username", newUsername);
           usernameDisplay.textContent = newUsername;
+          if (currentUID) {
+            await set(ref(db, `users/${currentUID}/username`), newUsername);
+          }
           document.getElementById("newUsername").value = "";
         }
       });
 
-      // Reset profile
-      document.getElementById("resetProfile").addEventListener("click", () => {
+      document.getElementById("resetProfile").addEventListener("click", async () => {
         if (confirm("Clear your profile info and photo?")) {
           localStorage.removeItem("username");
           localStorage.removeItem("profileImage");
           usernameDisplay.textContent = "Guest";
           profileImagePreview.src = "https://via.placeholder.com/100?text=Avatar";
+          if (currentUID) {
+            await set(ref(db, `users/${currentUID}`), {});
+          }
         }
       });
 
-      // Logout
       document.getElementById("logoutBtn").addEventListener("click", async () => {
         await signOut(auth);
         localStorage.clear();
         window.location.href = "login.html";
       });
 
-      // Toggle nav
       const navToggle = document.getElementById("navToggle");
       const sidebar = document.querySelector("aside");
       navToggle?.addEventListener("click", () => {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <!-- SEO Meta Tags -->
+  <!-- SEO Meta Tags -->
   <meta name="description" content="Explore the best anime with Hiro's Anime Blog. Find trending series, detailed summaries, and manage your watchlist. Dive into genres like Shounen, Romance, and more!" />
   <meta name="keywords" content="anime, anime blog, trending anime, watchlist, shounen, romance, Hiro's Anime Blog" />
   <meta name="author" content="Hiro's Anime Blog" />
@@ -21,10 +21,16 @@
   <meta name="twitter:title" content="Hiro's Anime Blog - Discover Iconic Anime" />
   <meta name="twitter:description" content="Explore the best anime, find trending series, detailed summaries, and build your watchlist!" />
   <meta name="twitter:image" content="https://hud-sonn.github.io/Animevibe/Images/hiro-logo.png" />
+
   <title>Contact - Hiro’s Anime World</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
+
+  <!-- Firebase & EmailJS CDN -->
+  <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-database-compat.js"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen p-4">
 
@@ -46,8 +52,7 @@
   <main class="max-w-xl mx-auto mt-10">
     <h2 class="text-3xl font-bold mb-6 text-blue-400 text-center">Contact Us</h2>
 
-    <form id="contactForm" class="bg-gray-800 p-6 rounded shadow-md space-y-4"
-      action="mailto:hirohudson107@gmail.com" method="POST" enctype="text/plain">
+    <form id="contactForm" class="bg-gray-800 p-6 rounded shadow-md space-y-4">
       <div>
         <label for="name" class="block mb-1 font-medium">Your Name</label>
         <input type="text" id="name" name="Name" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -56,8 +61,6 @@
         <label for="email" class="block mb-1 font-medium">Your Email</label>
         <input type="email" id="email" name="Email" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
-
-      <!-- Suggested Addition: Type Selector -->
       <div>
         <label for="type" class="block mb-1 font-medium text-blue-300">Type of Message</label>
         <select id="type" name="Type" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -67,7 +70,6 @@
           <option value="business">Business Inquiry</option>
         </select>
       </div>
-
       <div>
         <label for="message" class="block mb-1 font-medium">Your Message</label>
         <textarea id="message" name="Message" rows="4" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
@@ -88,8 +90,62 @@
   </main>
 
   <script>
+    // Navigation toggle
     document.getElementById("navToggle")?.addEventListener("click", () => {
       document.getElementById("mainNav").classList.toggle("hidden");
+    });
+
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNudIyyOGnRGJN6cMv5nPgThMYI4yFu9k",
+      authDomain: "animevibe-e6051.firebaseapp.com",
+      databaseURL: "https://animevibe-e6051-default-rtdb.firebaseio.com",
+      projectId: "animevibe-e6051",
+      storageBucket: "animevibe-e6051.appspot.com",
+      messagingSenderId: "312907823708",
+      appId: "1:312907823708:web:83d0c4fa1a2bd8ae19a4ed"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Form Submission
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const type = document.getElementById("type").value;
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) return alert("Please fill out all fields.");
+
+      // Save to Firebase
+      db.ref("contacts").push({
+        name,
+        email,
+        type,
+        message,
+        timestamp: Date.now()
+      });
+
+      // Send email via SMTP.js
+      Email.send({
+        SecureToken: "87657179-17f9-4761-8ec1-98741bce106a",
+        To: "hirohudson107@gmail.com",
+        From: "hirohudson107@gmail.com",
+        Subject: `New Contact Form - ${type}`,
+        Body: `
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Email:</strong> ${email}<br/>
+          <strong>Type:</strong> ${type}<br/>
+          <strong>Message:</strong><br/>${message}
+        `
+      }).then(() => {
+        alert("Message sent successfully!");
+        document.getElementById("contactForm").reset();
+      }).catch((err) => {
+        console.error("Email send failed:", err);
+        alert("There was an error sending your message.");
+      });
     });
   </script>
 </body>
