@@ -59,7 +59,6 @@
     <button id="navToggle" class="md:hidden text-white text-2xl">&#9776;</button>
     <nav id="mainNav" class="hidden md:flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 text-sm md:text-base absolute md:static top-full left-0 w-full md:w-auto bg-gray-800 md:bg-transparent px-6 py-4 md:p-0 shadow-lg md:shadow-none z-40">
       <a href="index.html" class="hover:underline">Home</a>
-      <a href="profile.html" class="hover:underline">Profile</a>
       <a href="faq.html" class="hover:underline">FAQ</a>
       <a href="contact.html" class="hover:underline">Contact</a>
       <a href="help.html" class="hover:underline">Help</a>
@@ -93,20 +92,7 @@
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/MGRm4IzK1SQ" allowfullscreen></iframe>
         </div>
-        <div class="mt-4">
-          <h4 class="font-semibold mb-2">Comments:</h4>
-          <div id="comments-AoT" class="bg-gray-700 p-4 rounded space-y-3 text-sm">
-            <div class="flex items-start gap-3">
-              <img src="assets/avatars/default.png" alt="Avatar" class="w-8 h-8 rounded-full" />
-              <div>
-                <p class="font-bold">User123 <span class="text-xs text-gray-400">– just now</span></p>
-                <p>Amazing buildup and world lore!</p>
-              </div>
             </div>
-            <div id="newComments-AoT" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-AoT" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
-            <button onclick="postComment('AoT')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
-          </div>
         </div>
       </div>
     </div>
@@ -127,14 +113,6 @@
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/wIb3nnOeves" allowfullscreen></iframe>
         </div>
-        <div class="mt-4">
-          <h4 class="font-semibold mb-2">Comments:</h4>
-          <div id="comments-MHA" class="bg-gray-700 p-4 rounded space-y-3 text-sm">
-            <div id="newComments-MHA" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-MHA" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
-            <button onclick="postComment('MHA')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -154,15 +132,7 @@
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/fAwGv0AJ7UI" allowfullscreen></iframe>
         </div>
-        <div class="mt-4">
-          <h4 class="font-semibold mb-2">Comments:</h4>
-          <div id="comments-Mob" class="bg-gray-700 p-4 rounded space-y-3 text-sm">
-            <div id="newComments-Mob" class="space-y-2 animate-fade-in-slow"></div>
-            <textarea id="commentInput-Mob" placeholder="Add a comment..." class="comment-input animate-fade-in w-full rounded p-2 bg-gray-900 text-white border border-gray-600 resize-none"></textarea>
-            <button onclick="postComment('Mob')" class="comment-button animate-fade-in mt-2 bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Post</button>
-          </div>
-        </div>
-      </div>
+        <
     </div>
 
   </main>
@@ -175,10 +145,39 @@
     </div>
   </div>
 
-  <footer class="text-center text-gray-400 p-4 bg-gray-800 mt-10">
-    &copy; 2025 Hiro’s Anime Blog
-  </footer>
+  <section>
+  <h3 class="text-2xl font-semibold my-4">Explore by Genre</h3>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <a class="genre-btn bg-blue-600" href="genre-shonen.html">Shounen</a>
+    <a class="genre-btn bg-pink-500" href="genre-romance.html">Romance</a>
+    <a class="genre-btn bg-green-400" href="genre-Isekia.html">Isekai</a>
+  </div>
+</section><style>
+  .genre-btn {
+    @apply text-center p-3 rounded font-" text-white hover:brightness-110 hover:scale-105 transition transform duration-300;
+  }
+</style>
+</main>
 
+<footer class="text-center text-gray-400 p-4 mt-10 bg-gray-800">
+  © 2025 Hiro’s Anime Blog. All rights reserved.
+</footer>
+
+<style>
+  .genre-btn {
+    @apply text-center p-3 rounded font-semibold text-white hover:brightness-110 hover:scale-105 transition transform duration-300;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  .animate-fade-in-slow {
+    animation: fadeIn 1s ease-out forwards;
+  }
+</style>
   <script>
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
@@ -211,47 +210,6 @@
     function closePopup() {
       watchlistPopup.classList.add('hidden');
       currentWatchlistTitle = null;
-    }
-
-    // Post comment function
-    function postComment(animeId) {
-      const input = document.getElementById(`commentInput-${animeId}`);
-      const commentsContainer = document.getElementById(`newComments-${animeId}`);
-      const text = input.value.trim();
-      if (text.length === 0) {
-        alert('Please enter a comment before posting.');
-        return;
-      }
-
-      // Create comment elements
-      const commentDiv = document.createElement('div');
-      commentDiv.className = 'flex items-start gap-3';
-
-      const avatar = document.createElement('img');
-      avatar.src = 'assets/avatars/default.png';
-      avatar.alt = 'Avatar';
-      avatar.className = 'w-8 h-8 rounded-full';
-
-      const textDiv = document.createElement('div');
-      const usernameP = document.createElement('p');
-      usernameP.className = 'font-bold';
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      usernameP.innerHTML = `You <span class="text-xs text-gray-400">– just now</span>`;
-
-      const commentP = document.createElement('p');
-      commentP.textContent = text;
-
-      textDiv.appendChild(usernameP);
-      textDiv.appendChild(commentP);
-
-      commentDiv.appendChild(avatar);
-      commentDiv.appendChild(textDiv);
-
-      commentsContainer.appendChild(commentDiv);
-
-      // Clear input
-      input.value = '';
     }
   </script>
 </body>

@@ -5,9 +5,6 @@ body { transition: background-color 0.3s ease, color 0.3s ease; font-family: 'Nu
   font-size: 15px;
 }
 
-/* Avatar Bounce Animation */ @keyframes bounce-avatar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-.bounce-avatar { animation: bounce-avatar 0.6s; }
 
 m/* Watchlist Highlight */ .watchlist-added { background-color: rgba(59, 130, 246, 0.2); border: 1px solid var(--theme-accent); border-radius: 0.5rem; transition: all 0.3s ease; }
 
@@ -150,39 +147,8 @@ main h2 {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
-.comment-input {
-  padding: 0.75rem;
-  font-size: 1rem;
-  border-radius: 0.375rem;
-  background-color: #1f2937; /* Tailwind's gray-800 */
-  color: white;
-  border: 1px solid #4b5563; /* gray-600 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  resize: none;
-  transition: all 0.3s ease;
-}
 
-.comment-input:focus {
-  outline: none;
-  ring: 2px solid #3b82f6; /* blue-500 */
-}
 
-.comment-button {
-  margin-top: 0.5rem;
-  background-color: #2563eb; /* blue-600 */
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
-
-.comment-button:hover {
-  background-color: #1d4ed8; /* blue-700 */
-  transform: scale(1.05);
-}
 @keyframes scaleIn {
   from {
     transform: scale(0.8);
@@ -211,7 +177,6 @@ main h2 {
 .animate-scaleIn {
   animation: scaleIn 0.3s ease-out;
 }
-/* Inside your style.css or <style> block */
 .trending-image {
   height: 200px;               /* Fixed height */
   object-fit: cover;           /* Maintain aspect ratio and crop if needed */
