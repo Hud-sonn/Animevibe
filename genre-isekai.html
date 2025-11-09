@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Isekai – Hiro's Anime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body class="min-h-screen">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-gray-800 shadow-lg p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-400">Hiro's Anime</h1>
+    <button id="navToggle" class="md:hidden text-2xl text-white">Menu</button>
+    <nav id="mainNav" class="hidden md:flex space-x-6 text-white">
+      <a href="index.html" class="hover:text-blue-400">Home</a>
+      <a href="genre-shonen.html" class="hover:text-blue-400">Shonen</a>
+      <a href="genre-romance.html" class="hover:text-blue-400">Romance</a>
+      <a href="genre-isekai.html" class="hover:text-blue-400 font-bold underline">Isekai</a>
+      <a href="watchlist.html" class="hover:text-blue-400">Watchlist</a>
+      <a href="help.html" class="hover:text-blue-400">Help</a>
+    </nav>
+  </header>
+
+  <!-- THEME TOGGLE -->
+  <div class="fixed top-4 right-4 z-40">
+    <button id="themeToggle" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+      <span class="sun hidden">Sun</span>
+      <span class="moon">Moon</span>
+    </button>
+  </div>
+
+  <!-- MAIN -->
+  <main class="max-w-5xl mx-auto p-6">
+    <h2 class="text-3xl font-bold text-center mb-8 text-green-400">Isekai Worlds</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- CARD 1 -->
+      <div class="card p-4 rounded-lg shadow-lg border border-gray-700" data-title="Re:Zero">
+        <img src="Images/rezero.jpg" alt="Re:Zero" class="w-full h-48 object-cover rounded" />
+        <h3 class="text-xl font-bold mt-3">Re:Zero</h3>
+        <p class="text-sm text-gray-400">Death loop in another world</p>
+        <div class="flex gap-1 my-2">
+          <span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span>
+        </div>
+        <button class="watchlist-btn bg-green-600 text-white w-full mt-3 py-2 rounded" data-title="Re:Zero" onclick="toggleWatchlist(this)">+ Watchlist</button>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card p-4 rounded-lg shadow-lg border border-gray-700" data-title="Konosuba">
+        <img src="Images/konosuba.jpg" alt="Konosuba" class="w-full h-48 object-cover rounded" />
+        <h3 class="text-xl font-bold mt-3">Konosuba</h3>
+        <p class="text-sm text-gray-400">Comedy isekai</p>
+        <div class="flex gap-1 my-2">
+          <span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-yellow-400">Star</span><span class="text-gray-600">Star</span>
+        </div>
+        <button class="watchlist-btn bg-green-600 text-white w-full mt-3 py-2 rounded" data-title="Konosuba" onclick="toggleWatchlist(this)">+ Watchlist</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- POPUP -->
+  <div id="watchlistPopup" class="fixed bottom-6 right-6 bg-gray-800 text-white p-4 rounded-lg shadow-lg border border-green-500 hidden z-50">
+    <p class="text-sm mb-2"></p>
+    <div class="flex gap-2">
+      <a href="watchlist.html" class="bg-green-600 px-3 py-1 rounded text-sm">Go</a>
+      <button onclick="closePopup()" class="bg-gray-600 px-3 py-1 rounded text-sm">Close</button>
+    </div>
+  </div>
+
+  <footer class="text-center p-4 bg-gray-800 text-gray-400 mt-12">
+    © 2025 Hiro's Anime World v4
+  </footer>
+</body>
+</html>

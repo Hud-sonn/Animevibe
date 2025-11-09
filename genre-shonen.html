@@ -3,60 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <!-- SEO Meta Tags -->
-  <meta name="description" content="Explore the best anime with Hiro's Anime Blog. Find trending series, detailed summaries, and manage your watchlist. Dive into genres like Shounen, Romance, and more!" />
-  <meta name="keywords" content="anime, anime blog, trending anime, watchlist, shounen, romance, Hiro's Anime Blog" />
-  <meta name="author" content="Hiro's Anime Blog" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Hiro's Anime Blog - Discover Iconic Anime" />
-  <meta property="og:description" content="Explore the best anime, find trending series, detailed summaries, and build your watchlist!" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hud-sonn.github.io/Animevibe/" />
-  <meta property="og:image" content="https://hud-sonn.github.io/Animevibe/Images/hiro-logo.png" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Hiro's Anime Blog - Discover Iconic Anime" />
-  <meta name="twitter:description" content="Explore the best anime, find trending series, detailed summaries, and build your watchlist!" />
-  <meta name="twitter:image" content="https://hud-sonn.github.io/Animevibe/Images/hiro-logo.png" />
   <title>Shounen Anime – Hiro's Blog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Simple fade-in animations */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.6s ease forwards;
-    }
-    .animate-fade-in-slow {
-      animation: fadeIn 1.2s ease forwards;
-    }
-    /* Aspect ratio helper if you don't have Tailwind aspect plugin */
-    .aspect-w-16 {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 */
-    }
-    .aspect-w-16 iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      border-radius: 0.5rem;
-    }
-  </style>
+  <script defer src="script.js"></script>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-gray-900 text-white min-h-screen">
 
   <header class="p-4 flex justify-between items-center bg-gray-800 shadow-lg sticky top-0 z-50">
     <h1 class="text-2xl font-extrabold tracking-wide animated-title">Hiro’s Anime World</h1>
-    <button id="navToggle" class="md:hidden text-white text-2xl">&#9776;</button>
+    <button id="navToggle" class="md:hidden text-white text-2xl">Menu</button>
     <nav id="mainNav" class="hidden md:flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 text-sm md:text-base absolute md:static top-full left-0 w-full md:w-auto bg-gray-800 md:bg-transparent px-6 py-4 md:p-0 shadow-lg md:shadow-none z-40">
       <a href="index.html" class="hover:underline">Home</a>
       <a href="faq.html" class="hover:underline">FAQ</a>
@@ -66,49 +22,44 @@
     </nav>
   </header>
 
+  <div class="fixed top-4 right-4 z-40">
+    <button id="themeToggle" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition flex items-center gap-1">
+      <span class="sun hidden">Sun</span>
+      <span class="moon">Moon</span>
+    </button>
+  </div>
+
   <main class="max-w-5xl mx-auto p-6 space-y-10">
-    <section class="text-center space-y-2">
+    <section class="text-center">
       <h2 class="text-4xl font-bold animate-fade-in">Top Shounen Picks</h2>
-      <p class="text-gray-400 animate-fade-in-slow max-w-2xl mx-auto">
-        Explore thrilling adventures, power-packed battles, and unforgettable characters with our top shounen anime recommendations. Whether you're into heroes, rivalries, or epic quests, this genre has something for everyone!
-      </p>
+      <p class="text-gray-400 animate-fade-in-slow">Thrilling adventures and epic battles!</p>
     </section>
 
     <!-- Attack on Titan -->
-    <div id="anime-AoT" class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300 space-y-3" data-title="Attack on Titan">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300" data-title="Attack on Titan">
       <div class="flex justify-between items-center">
         <h3 class="text-2xl font-semibold">Attack on Titan</h3>
         <button onclick="toggleDetails(this)" class="text-blue-400 hover:underline text-sm">Toggle Details</button>
       </div>
       <div class="details hidden space-y-4 animate-fade-in-slow">
-        <p class="text-gray-300 text-sm">
-          Humanity hides behind three massive walls to escape flesh-eating Titans. After a Titan breach destroys his hometown and kills his mother, Eren Yeager vows revenge and joins the elite Survey Corps with friends Mikasa and Armin. Battles reveal stunning truths: Eren can become a Titan, Titans are transformed humans, and their walled society—Paradis Island—is oppressed by the distant Marleyan Empire. Seeking freedom, Eren sparks a brutal world war and unleashes the apocalyptic Rumbling, marching countless Colossal Titans to trample the globe. Former comrades unite to stop him; Eren falls, ending the Rumbling and halting the cycle of hatred—though at immense human cost.
-        </p>
-        <img src="Images/Aot.jpg" alt="Attack on Titan" class="w-full rounded-lg mb-3 trending-image" />
-        <div class="flex gap-1 text-lg">
-          <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
-        </div>
+        <p class="text-gray-300 text-sm">Humanity hides behind walls from Titans. Eren vows revenge after his hometown is destroyed.</p>
+        <img src="Images/Aot.jpg" alt="Attack on Titan" class="w-full rounded-lg" />
         <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="Attack on Titan" onclick="toggleWatchlist(this)">+ Watchlist</button>
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/MGRm4IzK1SQ" allowfullscreen></iframe>
-        </div>
-            </div>
         </div>
       </div>
     </div>
 
     <!-- My Hero Academia -->
-    <div id="anime-MHA" class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300 space-y-3" data-title="My Hero Academia">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300" data-title="My Hero Academia">
       <div class="flex justify-between items-center">
         <h3 class="text-2xl font-semibold">My Hero Academia</h3>
         <button onclick="toggleDetails(this)" class="text-blue-400 hover:underline text-sm">Toggle Details</button>
       </div>
       <div class="details hidden space-y-4 animate-fade-in-slow">
-        <p class="text-gray-300 text-sm">Young heroes training to protect society with unique quirks!</p>
-        <img src="Images/mha.jpg" alt="My Hero Academia" class="w-full rounded-lg mb-3 trending-image" />
-        <div class="flex gap-1 text-lg">
-          <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
-        </div>
+        <p class="text-gray-300 text-sm">Young heroes train to protect society with unique quirks!</p>
+        <img src="Images/mha.jpg" alt="My Hero Academia" class="w-full rounded-lg" />
         <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="My Hero Academia" onclick="toggleWatchlist(this)">+ Watchlist</button>
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/wIb3nnOeves" allowfullscreen></iframe>
@@ -116,28 +67,24 @@
       </div>
     </div>
 
-    <!-- Mob Psycho -->
-    <div id="anime-Mob" class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300 space-y-3" data-title="Mob Psycho">
+    <!-- Mob Psycho 100 -->
+    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/30 transition-all duration-300" data-title="Mob Psycho 100">
       <div class="flex justify-between items-center">
-        <h3 class="text-2xl font-semibold">Mob Psycho</h3>
+        <h3 class="text-2xl font-semibold">Mob Psycho 100</h3>
         <button onclick="toggleDetails(this)" class="text-blue-400 hover:underline text-sm">Toggle Details</button>
       </div>
       <div class="details hidden space-y-4 animate-fade-in-slow">
-        <p class="text-gray-300 text-sm">Mob Psycho 100 follows Shigeo “Mob” Kageyama, a quiet middle schooler with immense psychic powers. He works for a fake psychic, suppressing emotions to keep powers in check. But evil spirits, powerful espers, and emotional trials force him to grow—and discover his strength isn’t just psychic.</p>
-        <img src="Images/Mob.jpeg" alt="Mob Psycho" class="w-full rounded-lg mb-3 trending-image" />
-        <div class="flex gap-1 text-lg">
-          <span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-yellow-400">★</span><span class="star text-gray-600">★</span>
-        </div>
-        <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="Mob Psycho" onclick="toggleWatchlist(this)">+ Watchlist</button>
+        <p class="text-gray-300 text-sm">Shigeo “Mob” Kageyama suppresses his psychic powers to live a normal life.</p>
+        <img src="Images/Mob.jpeg" alt="Mob Psycho 100" class="w-full rounded-lg" />
+        <button class="watchlist-btn bg-green-600 hover:bg-green-700 px-3 py-1 rounded" data-title="Mob Psycho 100" onclick="toggleWatchlist(this)">+ Watchlist</button>
         <div class="aspect-w-16 mt-4">
           <iframe src="https://www.youtube.com/embed/fAwGv0AJ7UI" allowfullscreen></iframe>
         </div>
-        <
+      </div>
     </div>
-
   </main>
 
-  <div id="watchlistPopup" class="fixed z-50 bottom-5 right-5 bg-gray-800 text-white p-4 rounded-lg shadow-lg border border-blue-500 hidden animate-fade-in">
+  <div id="watchlistPopup" class="fixed z-50 bottom-5 right-5 bg-gray-800 text-white p-4 rounded-lg shadow-lg border border-blue-500 hidden">
     <p class="mb-3">Add to Watchlist?</p>
     <div class="flex justify-end space-x-3">
       <a href="watchlist.html" class="bg-green-600 px-3 py-1 rounded hover:bg-green-700">Yes</a>
@@ -145,72 +92,8 @@
     </div>
   </div>
 
-  <section>
-  <h3 class="text-2xl font-semibold my-4">Explore by Genre</h3>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <a class="genre-btn bg-blue-600" href="genre-shonen.html">Shounen</a>
-    <a class="genre-btn bg-pink-500" href="genre-romance.html">Romance</a>
-    <a class="genre-btn bg-green-400" href="genre-Isekia.html">Isekai</a>
-  </div>
-</section><style>
-  .genre-btn {
-    @apply text-center p-3 rounded font-" text-white hover:brightness-110 hover:scale-105 transition transform duration-300;
-  }
-</style>
-</main>
-
-<footer class="text-center text-gray-400 p-4 mt-10 bg-gray-800">
-  © 2025 Hiro’s Anime Blog. All rights reserved.
-</footer>
-
-<style>
-  .genre-btn {
-    @apply text-center p-3 rounded font-semibold text-white hover:brightness-110 hover:scale-105 transition transform duration-300;
-  }
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-  .animate-fade-in-slow {
-    animation: fadeIn 1s ease-out forwards;
-  }
-</style>
-  <script>
-    // Mobile nav toggle
-    const navToggle = document.getElementById('navToggle');
-    const mainNav = document.getElementById('mainNav');
-    navToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('hidden');
-    });
-
-    // Toggle anime details
-    function toggleDetails(button) {
-      const container = button.closest('div[data-title]');
-      const details = container.querySelector('.details');
-      if (details.classList.contains('hidden')) {
-        details.classList.remove('hidden');
-      } else {
-        details.classList.add('hidden');
-      }
-    }
-
-    // Watchlist popup control
-    const watchlistPopup = document.getElementById('watchlistPopup');
-    let currentWatchlistTitle = null;
-
-    function toggleWatchlist(button) {
-      currentWatchlistTitle = button.getAttribute('data-title');
-      watchlistPopup.querySelector('p').textContent = `Add "${currentWatchlistTitle}" to Watchlist?`;
-      watchlistPopup.classList.remove('hidden');
-    }
-
-    function closePopup() {
-      watchlistPopup.classList.add('hidden');
-      currentWatchlistTitle = null;
-    }
-  </script>
+  <footer class="text-center text-gray-400 p-4 mt-10 bg-gray-800">
+    © 2025 Hiro’s Anime Blog. All rights reserved.
+  </footer>
 </body>
 </html>
