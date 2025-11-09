@@ -1,4 +1,4 @@
-// script.js – FINAL v4 (Navbar & Theme Fixed)
+// script.js – FINAL v4 (Watchlist & Theme Fixed)
 document.addEventListener("DOMContentLoaded", () => {
   const html = document.documentElement;
   const searchInput = document.getElementById("searchInput");
@@ -18,12 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // === THEME TOGGLE ===
+  // === THEME TOGGLE (FIXED: Switches to Light Mode) ===
   const applyTheme = () => {
     const theme = localStorage.getItem("theme") || "dark";
     html.setAttribute("data-theme", theme);
-    sunIcon?.classList.toggle("hidden", theme !== "light");
-    moonIcon?.classList.toggle("hidden", theme === "light");
+    if (sunIcon && moonIcon) {
+      sunIcon.classList.toggle("hidden", theme !== "light");
+      moonIcon.classList.toggle("hidden", theme === "light");
+    }
   };
   applyTheme();
 
@@ -50,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener("input", handleSearch);
   }
 
-  // === WATCHLIST ===
+  // === WATCHLIST (FIXED: Add/Remove Works) ===
   const getWatchlist = () => JSON.parse(localStorage.getItem("animeWatchlist") || "[]");
   const saveWatchlist = (list) => localStorage.setItem("animeWatchlist", JSON.stringify(list));
 
@@ -71,10 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
       list = list.filter(t => t !== title);
       button.textContent = "+ Watchlist";
       button.classList.replace("bg-red-600", "bg-green-600");
+      button.classList.remove("bg-red-600", "hover:bg-red-700");
+      button.classList.add("bg-green-600", "hover:bg-green-500");
     } else {
       list.push(title);
       button.textContent = "Added";
       button.classList.replace("bg-green-600", "bg-red-600");
+      button.classList.remove("bg-green-600", "hover:bg-green-500");
+      button.classList.add("bg-red-600", "hover:bg-red-500");
       showPopup(title);
     }
     saveWatchlist(list);
@@ -82,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showPopup = (title) => {
     if (watchlistPopup) {
-      popup.querySelector("p").textContent = `Added "${title}" to Watchlist!`;
-      popup.classList.remove("hidden");
-      setTimeout(() => popup.classList.add("hidden"), 2500);
+      watchlistPopup.querySelector("p").textContent = `Added "${title}" to Watchlist!`;
+      watchlistPopup.classList.remove("hidden");
+      setTimeout(() => watchlistPopup.classList.add("hidden"), 2500);
     }
   };
 
@@ -96,4 +102,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const details = container.querySelector('.details');
     details.classList.toggle('hidden');
   };
+
+  // === WATCHLIST PAGE ===
+  const watchlistContainer = document.getElementById("watchlistContainer");
+  if (watchlistContainer) {
+    const renderWatchlist = () => {
+      const items = getWatchlist();
+      watchlistContainer.innerHTML = items.map((title, index) => `
+        <div class="bg-gray-800 p-4 rounded-lg flex justify-between items-center shadow-md">
+          <span>${title}</span>
+          <button onclick="removeFromWatchlist(${index})" class="text-red-400 hover:text-red-600 text-2xl">×</button>
+        </div>
+      `).join('');
+    };
+    renderWatchlist();
+
+    window.removeFromWatchlist = (index) => {
+      let list = getWatchlist();
+      list.splice(index, 1);
+      saveWatchlist(list);
+      renderWatchlist();
+    };
+
+    const clearBtn = document.getElementById("clearWatchlist");
+    clearBtn?.addEventListener("click", () => {
+      if (confirm("Clear all?")) {
+        saveWatchlist([]);
+        renderWatchlist();
+      }
+    });
+  }
 });
